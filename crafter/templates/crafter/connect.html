@@ -1,3 +1,5 @@
-{% extends "instagram/base.html" %} {% block content %}
-<button>Connect Instagram</button>
-{% endblock %}
+{% load socialaccount %} {% if not instagram_account %}
+<a href="{% provider_login_url 'instagram' %}">Connect with instagram</a>
+{% else %}
+<p>YOu are successfully connected to instagram</p>
+{% endif %}
