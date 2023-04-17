@@ -63,7 +63,8 @@ MIDDLEWARE = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    'allauth.account.auth_backends.AuthenticationBackend'
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 SITE_ID = 1
@@ -145,15 +146,18 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
 SOCIALACCOUNT_PROVIDERS = {
     'instagram': {
-        'SCOPE': ['basic', 'public_content'], # optional
-        'AUTH_PARAMS': {'auth_type': 'reauthenticate'}, # optional
-        'METHOD': 'oauth2',
-        'VERIFIED_EMAIL': False,
-        'VERSION': 'v1',
-        'CLIENT_ID': INSTAGRAM_APP_ID,
-        'CLIENT_SECRET': INSTAGRAM_APP_SECRET,
-        'ACCESS_TOKEN_METHOD': 'POST',
+        'SCOPE': [
+            'user_profile',
+            'user_media'
+        ],
+        'AUTH_PARAMS': {
+            'state': 'random_state_string'
+        }
     }
 }
+
+LOGIN_REDIRECT_URL = 'home'

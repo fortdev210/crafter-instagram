@@ -3,9 +3,9 @@ from allauth.socialaccount.models import SocialAccount
 
 
 def connect_instagram(request):
-  instagram_account = SocialAccount.objects.filter(user=request.user, provider='instagram').first()
-  context = {
-    'instagram_account': instagram_account
-  }
-  return render(request, 'crafter/connect.html', context=context)
+  # instagram_account = SocialAccount.objects.filter(user=request.user, provider='instagram').first()
+  # context = {
+  #   'instagram_account': instagram_account
+  # }
+  return render(request, 'crafter/connect.html')
   

@@ -1,5 +1,5 @@
-{% load socialaccount %} {% if not instagram_account %}
-<a href="{% provider_login_url 'instagram' %}">Connect with instagram</a>
-{% else %}
-<p>YOu are successfully connected to instagram</p>
-{% endif %}
+{% load socialaccount %} {% providers_media_js %}
+
+<a href="{% provider_login_url 'instagram' method='oauth2' %}">
+  Connect with Instagram
+</a>
