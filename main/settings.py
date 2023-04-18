@@ -8,6 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 INSTAGRAM_APP_ID = os.getenv('INSTAGRAM_APP_ID')
 INSTAGRAM_APP_SECRET = os.getenv('INSTAGRAM_APP_SECRET')
+INSTAGRAM_REDIRECT_URI = os.getenv('REDIRECT_URI')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -18,9 +19,9 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['41b3-107-155-105-218.ngrok-free.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['789f-107-155-105-218.ngrok-free.app', 'localhost', '127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ['https://41b3-107-155-105-218.ngrok-free.app']
+CSRF_TRUSTED_ORIGINS = ['https://789f-107-155-105-218.ngrok-free.app']
 
 # Application definition
 
