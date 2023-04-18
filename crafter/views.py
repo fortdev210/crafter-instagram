@@ -4,6 +4,7 @@ import requests
 # from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.conf import settings
+from .models import InstagramPost
 
 # @login_required
 # def home(request):
@@ -53,7 +54,38 @@ def exchange_code_token(request):
     
     if response.ok:
         data = response.json()
-        print("access token ", data)
+        user_id = data['user_id']
+        access_token = data['access_token']
+        print("user id ", user_id)
+        print("access token ", access_token)
+        api_url = f'https://graph.instagram.com/{user_id}/media'
+
+        # Set the API parameters
+        params = {
+            'fields': 'id,media_type,media_url,caption,permalink',
+            'access_token': access_token,
+            'limit': 10
+        }
+
+        # Send a GET request to the API endpoint
+        response = requests.get(api_url, params=params)
+
+        # Parse the JSON response
+        json_response = response.json()
+       
+        # Extract the list of posts
+        posts = json_response['data']
+
+        # Loop through the posts and print their captions and permalinks
+        for post in posts:
+            # Create an InstagramPost object with the retrieved data
+            InstagramPost.objects.create(
+                user_id=user_id,
+                post_id=post['id'],
+                caption=post['caption'],
+                media_type=post['media_type'],
+                media_url=post['media_url'],
+            )
     
     return HttpResponse('OK')
     
