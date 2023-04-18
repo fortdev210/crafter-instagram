@@ -1,36 +1,10 @@
-from django.http import HttpResponse
 import requests
-# from allauth.socialaccount.models import SocialAccount
-# from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+
+from django.shortcuts import render, redirect
 from django.conf import settings
+from django.urls import reverse
+
 from .models import InstagramPost
-
-# @login_required
-# def home(request):
-#     user = request.user
-#     try:
-#         account = SocialAccount.objects.get(user=user, provider='instagram')
-#     except SocialAccount.DoesNotExist:
-#         account = None
-
-#     posts = []
-#     if account:
-#         access_token = account.socialtoken_set.first().token
-#         response = requests.get(
-#             f'https://graph.instagram.com/me/media?fields=id,caption,media_url,thumbnail_url,permalink,timestamp,username&access_token={access_token}'
-#         )
-#         if response.ok:
-#             data = response.json()
-#             for post in data['data']:
-#                 posts.append({
-#                     'id': post['id'],
-#                     'caption': post['caption'],
-#                     'image_url': post['media_url'],
-#                     'likes': 0,  # You can fetch the number of likes using the Instagram Graph API
-#                 })
-
-#     return render(request, 'home.html', {'user': user, 'posts': posts})
 
 
 def connect_instagram(request):
@@ -86,6 +60,11 @@ def exchange_code_token(request):
                 media_type=post['media_type'],
                 media_url=post['media_url'],
             )
-    
-    return HttpResponse('OK')
-    
+        return redirect(reverse('crafter:show_posts') + f'?user_id={user_id}')
+    return redirect(reverse('crafter:connect_instagram'))
+
+def show_posts(request):
+    user_id = request.GET.get('user_id')
+    posts = InstagramPost.get_posts_by_user(user_id)
+
+    return render(request, 'posts.html', {'posts': posts}) 
