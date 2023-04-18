@@ -1,5 +1,5 @@
 from django.urls import path 
-from django.views.generic import TemplateView
+
 from .views import connect_instagram, exchange_code_token, show_posts
 
 app_name = 'crafter'
