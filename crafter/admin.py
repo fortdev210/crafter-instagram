@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import InstagramPost
 
-# Register your models here.
+@admin.register(InstagramPost)
+class InstagramPostAdmin(admin.ModelAdmin):
+  list_display = ('user_id', 'post_id', 'caption', 'media_type', 'media_url')
+  
+
