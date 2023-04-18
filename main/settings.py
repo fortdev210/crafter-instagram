@@ -29,8 +29,9 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['41b3-107-155-105-218.ngrok-free.app']
 
+CSRF_TRUSTED_ORIGINS = ['https://41b3-107-155-105-218.ngrok-free.app']
 
 # Application definition
 
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 3rd party
+    'corsheaders',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
@@ -60,6 +62,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -154,9 +158,6 @@ SOCIALACCOUNT_PROVIDERS = {
             'user_profile',
             'user_media'
         ],
-        'AUTH_PARAMS': {
-            'state': 'random_state_string'
-        }
     }
 }
 
