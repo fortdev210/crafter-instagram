@@ -1,4 +1,5 @@
 import os
+
 from dotenv import load_dotenv
 from pathlib import Path
 
@@ -19,7 +20,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['789f-107-155-105-218.ngrok-free.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['789f-107-155-105-218.ngrok-free.app',
+                 'localhost', '127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = ['https://789f-107-155-105-218.ngrok-free.app']
 
@@ -32,13 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 3rd party
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.instagram',
-    
+
     # installed app
     'crafter.apps.CrafterConfig'
 ]
@@ -55,7 +51,6 @@ MIDDLEWARE = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 SITE_ID = 1
@@ -126,7 +121,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -136,14 +130,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-ACCOUNT_EMAIL_VERIFICATION = 'none'
-
-SOCIALACCOUNT_PROVIDERS = {
-    'instagram': {
-        'SCOPE': [
-            'user_profile',
-            'user_media'
-        ],
-    }
-}
