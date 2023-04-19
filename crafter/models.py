@@ -17,7 +17,7 @@ class InstagramPost(models.Model):
         try:
             instagram_post = cls(
                 user_id=post_data['user_id'],
-                post_id=post_data['post_id'],
+                post_id=post_data['id'],
                 caption=post_data['caption'],
                 media_type=post_data['media_type'],
                 media_url=post_data['media_url']

@@ -57,6 +57,7 @@ def exchange_code_token(request):
         # Loop through the posts and print their captions and permalinks
         for post in posts:
             # Create an InstagramPost object with the retrieved data
+            post['user_id'] = user_id
             InstagramPost.save_post(post)
         return redirect(reverse('crafter:show_posts'))
     return redirect(reverse('crafter:connect_instagram'))
@@ -69,4 +70,4 @@ def show_posts(request):
 
         return render(request, 'posts.html', {'posts': posts})
     else:
-        connect_instagram(request)
+        return redirect(reverse('crafter:connect_instagram'))
