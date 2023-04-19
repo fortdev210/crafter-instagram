@@ -31,6 +31,11 @@ def exchange_code_token(request):
         data = response.json()
         user_id = data['user_id']
         access_token = data['access_token']
+
+        # add access_token and user_id to request session
+        request.session['access_token'] = access_token
+        request.session['user_id'] = user_id
+
         api_url = f'https://graph.instagram.com/{user_id}/media'
 
         # Set the API parameters
@@ -53,12 +58,15 @@ def exchange_code_token(request):
         for post in posts:
             # Create an InstagramPost object with the retrieved data
             InstagramPost.save_post(post)
-        return redirect(reverse('crafter:show_posts') + f'?user_id={user_id}')
+        return redirect(reverse('crafter:show_posts'))
     return redirect(reverse('crafter:connect_instagram'))
 
 
 def show_posts(request):
-    user_id = request.GET.get('user_id')
-    posts = InstagramPost.get_posts_by_user(user_id)
+    if 'access_token' in request:
+        user_id = request.get('user_id')
+        posts = InstagramPost.get_posts_by_user(user_id)
 
-    return render(request, 'posts.html', {'posts': posts})
+        return render(request, 'posts.html', {'posts': posts})
+    else:
+        connect_instagram(request)
