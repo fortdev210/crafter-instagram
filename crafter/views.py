@@ -64,8 +64,8 @@ def exchange_code_token(request):
 
 
 def show_posts(request):
-    if 'access_token' in request:
-        user_id = request.get('user_id')
+    if request.access_token:
+        user_id = request.user_id
         posts = InstagramPost.get_posts_by_user(user_id)
 
         return render(request, 'posts.html', {'posts': posts})
